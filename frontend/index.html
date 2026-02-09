@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>SplitWise for Hostels</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+
+<body>
+    <!-- Auth Page -->
+    <div id="authPage" class="page active">
+        <div class="auth-container">
+            <div class="auth-card">
+                <div class="auth-icon">
+                    <svg class="icon-large" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                        <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                        <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                    </svg>
+                </div>
+                <h1 class="auth-title" id="authTitle">Welcome Back</h1>
+                <p class="auth-subtitle" id="authSubtitle">Login to manage your expenses</p>
+
+                <form id="authForm" class="auth-form">
+                    <div id="nameField" class="form-group hidden">
+                        <label>Full Name</label>
+                        <div class="input-wrapper">
+                            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                            <input type="text" id="name" placeholder="Enter your name">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <div class="input-wrapper">
+                            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                <polyline points="22,6 12,13 2,6"></polyline>
+                            </svg>
+                            <input type="email" id="email" placeholder="Enter your email" required>
+                        </div>
+                    </div>
+
+                    <div id="phoneField" class="form-group hidden">
+                        <label>Phone Number</label>
+                        <div class="input-wrapper">
+                            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                            </svg>
+                            <input type="tel" id="phone" placeholder="Enter your phone">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Password</label>
+                        <div class="input-wrapper">
+                            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                            </svg>
+                            <input type="password" id="password" placeholder="Enter your password" required>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-full" id="authButton">Login</button>
+                </form>
+
+                <div class="auth-toggle">
+                    <button id="toggleAuth" class="link-button">Don't have an account? Sign up</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Page -->
+    <div id="dashboardPage" class="page">
+        <div class="header-gradient">
+            <div class="container header-content">
+                <div class="header-left">
+                    <h1 class="page-title">Hey <span id="userName">User</span>! 👋</h1>
+                    <p class="page-subtitle">Manage your group expenses effortlessly</p>
+                </div>
+                <div id="profileMenu" class="profile-menu">
+                    <button class="profile-button" id="profileButton">
+                        <div class="profile-avatar">
+                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                        </div>
+                        <span class="profile-name" id="profileName">User</span>
+                        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <div class="profile-dropdown hidden" id="profileDropdown">
+                        <div class="profile-info">
+                            <p class="profile-info-name" id="dropdownName">User</p>
+                            <p class="profile-info-email" id="dropdownEmail">user@example.com</p>
+                            <p class="profile-info-phone" id="dropdownPhone"></p>
+                        </div>
+                        <button class="logout-button" id="logoutButton">
+                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                                <polyline points="16 17 21 12 16 7"></polyline>
+                                <line x1="21" y1="12" x2="9" y2="12"></line>
+                            </svg>
+                            <span>Logout</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="header-actions">
+                    <button class="btn btn-white" id="createGroupBtn">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                        <span>Create New Group</span>
+                    </button>
+                    <button class="btn btn-secondary" id="viewAnalyticsBtn">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="20" x2="12" y2="10"></line>
+                            <line x1="18" y1="20" x2="18" y2="4"></line>
+                            <line x1="6" y1="20" x2="6" y2="16"></line>
+                        </svg>
+                        <span>Analytics</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="container main-content">
+            <div class="section-header">
+                <h2>Your Groups</h2>
+                <p class="section-subtitle">Track and split expenses with your friends</p>
+            </div>
+            <div id="groupsList" class="groups-grid"></div>
+        </div>
+    </div>
+
+    <!-- Create Group Page -->
+    <div id="createGroupPage" class="page">
+        <div class="header-gradient">
+            <div class="container">
+                <div class="header-with-profile">
+                    <button class="btn btn-secondary back-btn" id="backFromCreateGroup">
+                        <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="19" y1="12" x2="5" y2="12"></line>
+                            <polyline points="12 19 5 12 12 5"></polyline>
+                        </svg>
+                        <span>Back</span>
+                    </button>
+                </div>
+            </div>
+            <div class="container header-content-simple">
+                <h1 class="page-title">Create New Group</h1>
+                <p class="page-subtitle">Set up a new group to track expenses together</p>
+            </div>
+        </div>
+
+        <div class="container main-content">
+            <div class="form-card">
+                <form id="createGroupForm">
+                    <div class="form-group">
+                        <label>Group Name</label>
+                        <div class="input-wrapper">
+                            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                            </svg>
+                            <input type="text" id="groupName" placeholder="e.g., Roommates, Weekend Trip" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Add Members</label>
+                        <div class="member-input-group">
+                            <div class="input-wrapper flex-1">
+                                <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="8.5" cy="7" r="4"></circle>
+                                    <line x1="20" y1="8" x2="20" y2="14"></line>
+                                    <line x1="23" y1="11" x2="17" y2="11"></line>
+                                </svg>
+                                <input type="text" id="memberInput" placeholder="Enter member name">
+                            </div>
+                            <button type="button" class="btn btn-primary" id="addMemberBtn">
+                                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                </svg>
+                                <span class="btn-text-mobile">Add</span>
+                            </button>
+                        </div>
+                        <div id="membersList" class="members-list"></div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-full">Create Group</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Group Details Page -->
+    <div id="groupDetailsPage" class="page">
+        <div class="header-gradient">
+            <div class="container">
+                <div class="header-with-profile">
+                    <button class="btn btn-secondary back-btn" id="backFromGroupDetails">
+                        <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="19" y1="12" x2="5" y2="12"></line>
+                            <polyline points="12 19 5 12 12 5"></polyline>
+                        </svg>
+                        <span>Back</span>
+                    </button>
+                </div>
+            </div>
+            <div class="container">
+                <div class="header-content-between">
+                    <div>
+                        <h1 class="page-title" id="groupDetailsName">Group Name</h1>
+                        <p class="page-subtitle" id="groupDetailsMembersCount">0 members</p>
+                    </div>
+                    <div class="header-actions">
+                        <button class="btn btn-danger" id="deleteGroupBtn">
+                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="3 6 5 6 21 6"></polyline>
+                                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                            </svg>
+                            <span>Delete</span>
+                        </button>
+                        <button class="btn btn-secondary" id="groupAnalyticsBtn">
+                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="20" x2="12" y2="10"></line>
+                                <line x1="18" y1="20" x2="18" y2="4"></line>
+                                <line x1="6" y1="20" x2="6" y2="16"></line>
+                            </svg>
+                            <span>Analytics</span>
+                        </button>
+                        <button class="btn btn-white" id="addExpenseBtn">
+                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                            </svg>
+                            <span>Add Expense</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container main-content">
+            <div class="stats-grid" id="groupStats"></div>
+            <div class="details-grid" id="groupDetailsContent"></div>
+            <div class="expenses-card">
+                <h2>All Expenses</h2>
+                <div id="expensesList"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Expense Page -->
+    <div id="addExpensePage" class="page">
+        <div class="header-gradient">
+            <div class="container">
+                <div class="header-with-profile">
+                    <button class="btn btn-secondary back-btn" id="backFromAddExpense">
+                        <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="19" y1="12" x2="5" y2="12"></line>
+                            <polyline points="12 19 5 12 12 5"></polyline>
+                        </svg>
+                        <span>Back</span>
+                    </button>
+                </div>
+            </div>
+            <div class="container header-content-simple">
+                <h1 class="page-title">Add New Expense</h1>
+                <p class="page-subtitle" id="addExpenseGroupName">Record a new expense</p>
+            </div>
+        </div>
+
+        <div class="container main-content">
+            <div class="form-card">
+                <form id="addExpenseForm">
+                    <div class="form-group">
+                        <label>Expense Title</label>
+                        <div class="input-wrapper">
+                            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                                <line x1="16" y1="13" x2="8" y2="13"></line>
+                                <line x1="16" y1="17" x2="8" y2="17"></line>
+                            </svg>
+                            <input type="text" id="expenseTitle" placeholder="e.g., Groceries, Dinner" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Amount (PKR)</label>
+                        <div class="input-wrapper">
+                            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="1" x2="12" y2="23"></line>
+                                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                            </svg>
+                            <input type="number" id="expenseAmount" placeholder="0.00" step="0.01" min="0.01" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Paid By</label>
+                        <select id="expensePaidBy" class="select-input" required></select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Date</label>
+                        <input type="date" id="expenseDate" class="date-input" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Split Method</label>
+                        <div class="split-method-toggle">
+                            <button type="button" class="split-method-btn active" data-method="equal" onclick="setSplitMethod('equal')">
+                                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="5" y1="9" x2="19" y2="9"></line>
+                                    <line x1="5" y1="15" x2="19" y2="15"></line>
+                                    <line x1="12" y1="2" x2="12" y2="22"></line>
+                                </svg>
+                                <span>Split Equally</span>
+                            </button>
+                            <button type="button" class="split-method-btn" data-method="custom" onclick="setSplitMethod('custom')">
+                                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="12" y1="1" x2="12" y2="23"></line>
+                                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                                </svg>
+                                <span>Custom Amounts</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Split Among (Select Members)</label>
+                        <div id="splitMembersCheckboxes" class="split-members-checkboxes"></div>
+                    </div>
+
+                    <div class="form-group hidden" id="customAmountsSection">
+                        <label>Enter Amount for Each Person</label>
+                        <div id="customAmountsInputs" class="custom-amounts-inputs"></div>
+                        <div id="amountValidation" class="amount-validation"></div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-full">Save Expense</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Analytics Page -->
+    <div id="analyticsPage" class="page">
+        <div class="header-gradient">
+            <div class="container">
+                <div class="header-with-profile">
+                    <button class="btn btn-secondary back-btn" id="backFromAnalytics">
+                        <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="19" y1="12" x2="5" y2="12"></line>
+                            <polyline points="12 19 5 12 12 5"></polyline>
+                        </svg>
+                        <span>Back</span>
+                    </button>
+                </div>
+            </div>
+            <div class="container header-content-simple">
+                <h1 class="page-title">Analytics & Insights</h1>
+                <p class="page-subtitle" id="analyticsSubtitle">Overview of all your expenses</p>
+            </div>
+        </div>
+
+        <div class="container main-content">
+            <div class="stats-grid-4" id="analyticsStats"></div>
+
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <h2>Spending Trends</h2>
+                    <p class="chart-subtitle">Daily expense overview</p>
+                    <div class="chart-container">
+                        <canvas id="lineChart"></canvas>
+                    </div>
+                </div>
+                <div class="chart-card">
+                    <h2>Category Distribution</h2>
+                    <p class="chart-subtitle">Expense breakdown by category</p>
+                    <div class="chart-container">
+                        <canvas id="pieChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="analytics-summary">
+                <div class="summary-card">
+                    <h2>Recent Expenses</h2>
+                    <div id="recentExpensesList"></div>
+                </div>
+            </div>
+
+            <div class="table-card">
+                <h2>Category Breakdown</h2>
+                <div id="categoryTable"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
